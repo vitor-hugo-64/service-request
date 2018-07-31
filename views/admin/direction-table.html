@@ -1,0 +1,48 @@
+<tr>
+  <th>ID</th>
+  <th>Descrição</th>
+  <th>Sigla</th>
+  <th style="width: 75px;"></th>
+  <th style="width: 75px;"></th>
+</tr>
+{loop="$directions"}
+<tr>
+  <td>{$value.direction_id}</td>
+  <td>{$value.description}</td>
+  <td>{$value.initials}</td>
+  <td>
+    <a href="/service-request/admin/direction/update/{$value.direction_id}">
+      <i class="fa fa-edit"></i>
+      Editar
+    </a>
+  </td>
+  <td>
+    <a class="text-danger" href="#"  data-toggle="modal" data-target="#modal-delete-{$value.direction_id}">
+      <i class="fa fa-trash"></i>
+      Excluir
+    </a>
+  </td>                  
+</tr>
+
+<div class="modal fade" id="modal-delete-{$value.direction_id}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title text-danger">Excluir</h4>
+        </div>
+        <div class="modal-body">
+          <p>Tem certeza que deseja excluir determinada direção?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancelar</button>
+          <a href="/service-request/admin/direction/delete/{$value.direction_id}" type="button" class="btn btn-danger">
+            Confirmar
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {/loop}

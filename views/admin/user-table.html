@@ -1,0 +1,27 @@
+<tr>
+  <th style="width: 35px;">ST</th>
+  <th>Nome</th>
+  <th>Setor</th>
+  <th>Email</th>
+  <th style="width: 65px;"></th>
+</tr>
+{loop="$users"}
+<tr>
+  {if="$value.is_active == s"}
+  <td><i class="fa fa-user text-success " title="Usuário Ativado" data-toggle="tooltip" data-placement="right"></i></td>
+  {else}
+  <td><i class="fa fa-user-slash text-danger" title="Usuário Desativado" data-toggle="tooltip" data-placement="right"></i></td>
+  {/if}
+  <td>{$value.first_name} {$value.last_name}</td>
+  <td>{$value.description}</td>
+  <td>{$value.email}</td>
+  <td>
+    <span>
+      <a href="/service-request/admin/user/profile/{$value.user_id}">
+        <i class="fa fa-user-circle"></i>
+        Perfil
+      </a>
+    </span>
+  </td>
+</tr>
+{/loop}
