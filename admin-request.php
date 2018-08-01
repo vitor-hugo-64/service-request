@@ -36,7 +36,64 @@ $app->post( '/admin/request/insert', function ()
 	exit();
 });
 
-$app->get( '/admin/test', function ()
+$app->get( '/admin/request/update/{requestId}', function ( $request, $response, $args)
 {
-	Request::listAll();
+	$informations = array( 'headerTitle' => 'Admin - Editar solicitação', 'user' => User::getSession());
+	$pageAdmin = new PageAdmin( array( 'data' => $informations));
+	$pageAdmin->drawPage( 'request-update', array( 'problems' => ProblemType::listAll(), 'request' => Request::getDatasById( $args['requestId'])));
+});
+
+$app->post( '/admin/request/update', function ()
+{
+	$request = new Request();
+	$request->setDatas( $_POST);
+
+	try {
+		$request->save();
+		Request::setStatus( 'Solicitação editada com sucesso!', 'success');
+	} catch (Exception $e) {
+		Request::setStatus( $e->getMessage(), 'danger');
+	}
+
+	header('Location: /service-request/admin/request');
+	exit();
+});
+
+$app->get( '/admin/request/cancel/{requestId}', function ( $request, $response, $args)
+{
+	try {
+		Request::cancel( $args['requestId']);
+		Request::setStatus( 'Solicitação cancelada com sucesso!', 'success');
+	} catch (Exception $e) {
+		Request::setStatus( $e->getMessage(), 'danger');
+	}
+
+	header('Location: /service-request/admin/request');
+	exit();
+});
+
+$app->get( '/admin/request/view/{requestId}', function ( $request, $response, $args)
+{
+	// echo json_encode( Request::getDatasById( $args['requestId']));
+	$informations = array( 'headerTitle' => 'Admin - Editar solicitação', 'user' => User::getSession());
+	$pageAdmin = new PageAdmin( array( 'data' => $informations));
+	$pageAdmin->drawPage( 'request-view', array( 'problems' => ProblemType::listAll(), 'request' => Request::getDatasById( $args['requestId'])));
+});
+
+$app->get( '/admin/request/meet/{requestId}', function ( $request, $response, $args)
+{
+	$user = new User();
+	$user->setDatas( User::getSession());
+	Request::meet( $args['requestId'], $user->getUserId());
+	header('Location: /service-request/admin/request/view/' .  $args['requestId']);
+	exit();
+});
+
+$app->get( '/admin/request/stop-meet/{requestId}', function ( $request, $response, $args)
+{
+	$user = new User();
+	$user->setDatas( User::getSession());
+	Request::stopMeet( $args['requestId'], $user->getUserId());
+	header('Location: /service-request/admin/request/view/' .  $args['requestId']);
+	exit();
 });

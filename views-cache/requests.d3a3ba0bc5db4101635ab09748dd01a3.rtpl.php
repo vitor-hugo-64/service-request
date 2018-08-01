@@ -28,10 +28,15 @@
             </div>
             <div class="box-body no-padding">
               <ul class="nav nav-pills nav-stacked">
-                <li class="active"><a href="#"><i class="fa fa-inbox"></i>Todos</a></li>
+                <li class="active">
+                  <a href="#"><i class="fa fa-inbox"></i> 
+                    Todos
+                    <span class="label label-primary pull-right">12</span>
+                  </a>
+                </li>
                 <li><a href="#"><i class="fa fa-check-square"></i> Concluídos</a></li>
                 <li><a href="#"><i class="fa fa-envelope-open"></i>Em aberto</a></li>
-                <li><a href="#"><i class="fa fa-users-cog"></i> Em atendimento</a>
+                <li><a href="#"><i class="fa fa-user-slash"></i> Sem dono <span class="label label-warning pull-right">65</span></a>
                 </li>
                 <li><a href="#"><i class="fa fa-user-tag"></i> Estou atendendo</a></li>
                 <li><a href="#"><i class="fa fa-ban"></i> Cancelados</a></li>
@@ -90,7 +95,7 @@
                   <td><?php echo htmlspecialchars( $value1["request_id"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                   <td><?php echo htmlspecialchars( $value1["title"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                   <td><?php echo htmlspecialchars( $value1["problem_description"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
-                  <td><?php echo htmlspecialchars( $value1["status_request"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
+                  <td><?php echo htmlspecialchars( $value1["status_description"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                   <td><?php echo htmlspecialchars( $value1["request_date"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                   <td>
                     <a href="/service-request/admin/request/view/<?php echo htmlspecialchars( $value1["request_id"], ENT_COMPAT, 'UTF-8', FALSE ); ?>">

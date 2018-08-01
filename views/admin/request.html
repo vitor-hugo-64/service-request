@@ -28,109 +28,120 @@
             </div>
             <div class="box-body no-padding">
               <ul class="nav nav-pills nav-stacked">
-                <li class="active"><a href="#"><i class="fa fa-inbox"></i> Todos
-                  <span class="label label-primary pull-right">12</span></a></li>
-                  <li><a href="#"><i class="fa fa-check-square"></i> Concluídos</a></li>
-                  <li><a href="#"><i class="fa fa-envelope-open"></i>Em aberto</a></li>
-                  <li><a href="#"><i class="fa fa-user-slash"></i> Sem dono <span class="label label-warning pull-right">65</span></a>
-                  </li>
-                  <li><a href="#"><i class="fa fa-ban"></i> Cancelados</a></li>
-                </ul>
-              </div>
-              <!-- /.box-body -->
+                <li class="active"><a href="#"><i class="fa fa-inbox"></i>Todos</a></li>
+                <li><a href="#"><i class="fa fa-check-square"></i> Concluídos</a></li>
+                <li><a href="#"><i class="fa fa-envelope-open"></i>Em aberto</a></li>
+                <li><a href="#"><i class="fa fa-users-cog"></i> Em atendimento</a>
+                </li>
+                <li><a href="#"><i class="fa fa-user-tag"></i> Estou atendendo</a></li>
+                <li><a href="#"><i class="fa fa-ban"></i> Cancelados</a></li>
+              </ul>
             </div>
-            <!-- /.box -->
+            <!-- /.box-body -->
           </div>
-          <!-- /.col -->
-          <div class="col-md-9">
-            {if="$status.message!=false"}
-            <div class="alert alert-{$status.type}" role="alert">
-              {if="$status.type==success"}
-              <i class="fa fa-check-circle" style="margin-right: 15px;"></i>
-              {/if}
-              {if="$status.type==danger"}
-              <i class="fa fa-exclamation-circle" style="margin-right: 15px;"></i>
-              {/if}
-              {$status.message}
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
+          <!-- /.box -->
+        </div>
+        <!-- /.col -->
+        <div class="col-md-9">
+          {if="$status.message!=false"}
+          <div class="alert alert-{$status.type}" role="alert">
+            {if="$status.type==success"}
+            <i class="fa fa-check-circle" style="margin-right: 15px;"></i>
             {/if}
+            {if="$status.type==danger"}
+            <i class="fa fa-exclamation-circle" style="margin-right: 15px;"></i>
+            {/if}
+            {$status.message}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          {/if}
 
-            <div class="box box-success">
-              <div class="box-header">
-                <h3 class="box-title">Lista de solicitações feitas por você</h3>
+          <div class="box box-success">
+            <div class="box-header">
+              <h3 class="box-title">Lista de solicitações feitas por você</h3>
 
-                <div class="box-tools">
-                  <div class="input-group input-group-sm" style="width: 150px;">
-                    <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
+              <div class="box-tools">
+                <div class="input-group input-group-sm" style="width: 150px;">
+                  <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
 
-                    <div class="input-group-btn">
-                      <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-                    </div>
+                  <div class="input-group-btn">
+                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
                   </div>
                 </div>
               </div>
-              <!-- /.box-header -->
-              <div class="box-body table-responsive no-padding">
-                <table class="table table-striped">
-                  <tr>
-                    <th>ID</th>
-                    <th>Título</th>
-                    <th>Data</th>
-                    <th style="width: 75px;"></th>
-                    <th style="width: 85px;"></th>
-                  </tr>
-                  {loop="$requests"}
-                  <tr>
-                    <td>{$value.request_id}</td>
-                    <td>{$value.title}</td>
-                    <td>{$value.request_date}</td>
-                    <td>
-                      <a href="/service-request/admin/direction/update/{$value.request_id}">
-                        <i class="fa fa-edit"></i>
-                        Editar
-                      </a>
-                    </td>
-                    <td>
-                      <a class="text-danger" href="#"  data-toggle="modal" data-target="#modal-delete-{$value.request_id}">
-                        <i class="fa fa-ban"></i>
-                        Cancelar
-                      </a>
-                    </td> 
-                  </tr>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+              <table class="table table-striped">
+                <tr>
+                  <th>ID</th>
+                  <th>Título</th>
+                  <th>Tipo de problema</th>
+                  <th>Status</th>
+                  <th>Data</th>
+                  <th style="width: 95px;"></th>
+                  <th style="width: 75px;"></th>
+                  <th style="width: 85px;"></th>
+                </tr>
+                {loop="$requests"}
+                <tr>
+                  <td>{$value.request_id}</td>
+                  <td>{$value.title}</td>
+                  <td>{$value.problem_description}</td>
+                  <td>{$value.status_request}</td>
+                  <td>{$value.request_date}</td>
+                  <td>
+                    <a href="/service-request/admin/request/view/{$value.request_id}">
+                      <i class="fa fa-eye"></i>
+                      Visualizar
+                    </a>
+                  </td>
+                  <td>
+                    <a href="/service-request/admin/request/update/{$value.request_id}">
+                      <i class="fa fa-edit"></i>
+                      Editar
+                    </a>
+                  </td>
+                  <td>
+                    <a class="text-danger" href="#"  data-toggle="modal" data-target="#modal-cancel-{$value.request_id}">
+                      <i class="fa fa-ban"></i>
+                      Cancelar
+                    </a>
+                  </td> 
+                </tr>
 
-                  <div class="modal fade" id="modal-delete-{$value.request_id}">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title text-danger">Excluir</h4>
-                          </div>
-                          <div class="modal-body">
-                            <p>Tem certeza que deseja excluir determinada requisição?</p>
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancelar</button>
-                            <a href="/service-request/admin/direction/delete/{$value.request_id}" type="button" class="btn btn-danger">
-                              Confirmar
-                            </a>
-                          </div>
+                <div class="modal fade" id="modal-cancel-{$value.request_id}">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span></button>
+                          <h4 class="modal-title text-danger">Excluir</h4>
+                        </div>
+                        <div class="modal-body">
+                          <p>Tem certeza que deseja cancelar determinada solicitação?</p>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancelar</button>
+                          <a href="/service-request/admin/request/cancel/{$value.request_id}" type="button" class="btn btn-danger">
+                            Confirmar
+                          </a>
                         </div>
                       </div>
                     </div>
-                    {/loop}
-                  </table>
-                </div>
-                <!-- /.box-body -->
+                  </div>
+                  {/loop}
+                </table>
               </div>
-              <!-- /. box -->
+              <!-- /.box-body -->
             </div>
-            <!-- /.col -->
+            <!-- /. box -->
           </div>
-          <!-- /.row -->
-        </section>
-        <!-- /.content -->
-      </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </section>
+      <!-- /.content -->
+    </div>
