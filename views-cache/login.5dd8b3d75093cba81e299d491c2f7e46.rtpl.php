@@ -33,26 +33,19 @@
     </div>
 
     <?php if( $status["message"]!=false ){ ?>
-
     <div class="alert alert-<?php echo htmlspecialchars( $status["type"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" role="alert">
       <?php if( $status["type"]==success ){ ?>
-
       <i class="fa fa-check-circle" style="margin-right: 15px;"></i>
       <?php } ?>
-
       <?php if( $status["type"]==danger ){ ?>
-
       <i class="fa fa-exclamation-circle" style="margin-right: 15px;"></i>
       <?php } ?>
-
       <?php echo htmlspecialchars( $status["message"], ENT_COMPAT, 'UTF-8', FALSE ); ?>
-
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
     <?php } ?>
-
 
     <div class="login-box-body">
       <p class="login-box-msg">Informe matrícula ou email para entrar</p>

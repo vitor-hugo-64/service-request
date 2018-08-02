@@ -80,32 +80,32 @@ class Request extends Model
 		$DB = new DB();
 		return $DB->select("SELECT
 			r.request_id, r.title, r.description request_description, r.request_date, r.status_request,
-			a.attendance_id, a.user_id adm_id, a.feedback,
+			a.attendance_id, a.feedback, a.user_id, a.in_progress, count( a.user_id) number_attendances,
 			u.user_id, u.first_name, u.last_name, u.registration, u.email, u.profile_picture,
 			s.sector_id, s.description sector_description,
-			p.problem_type_id, p.description problem_description
-			FROM
-			sr_request r LEFT JOIN sr_attendance a ON r.request_id = a.request_id
+			p.problem_type_id, p.description problem_type_description
+			FROM sr_request r LEFT JOIN sr_attendance a ON r.request_id = a.request_id
 			JOIN sr_user u ON u.user_id = r.user_id
 			JOIN sr_sector s ON u.sector_id = s.sector_id
 			JOIN sr_problem_type p ON p.problem_type_id = r.problem_type_id
+			GROUP BY r.request_id
 			");
 	}
 
 	public static function getDatasById( $requestId):array
 	{
 		$DB = new DB();
-		$querySelect = "SELECT DISTINCT
+		$querySelect = "SELECT
 		r.request_id, r.title, r.description request_description, r.request_date, r.status_request,
-		a.attendance_id, a.user_id adm_id, a.feedback,
+		a.attendance_id, a.feedback, a.user_id, a.in_progress, count( a.user_id) number_attendances,
 		u.user_id, u.first_name, u.last_name, u.registration, u.email, u.profile_picture,
 		s.sector_id, s.description sector_description,
-		p.problem_type_id, p.description problem_description
-		FROM
-		sr_request r LEFT JOIN sr_attendance a ON r.request_id = a.request_id
+		p.problem_type_id, p.description problem_type_description
+		FROM sr_request r LEFT JOIN sr_attendance a ON r.request_id = a.request_id
 		JOIN sr_user u ON u.user_id = r.user_id
 		JOIN sr_sector s ON u.sector_id = s.sector_id
 		JOIN sr_problem_type p ON p.problem_type_id = r.problem_type_id
+		GROUP BY r.request_id
 		WHERE r.request_id = :request_id";
 		$parameters = array( ':request_id' => $requestId);
 		$response = $DB->select( $querySelect, $parameters);
